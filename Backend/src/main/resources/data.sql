@@ -1,0 +1,1 @@
+INSERT INTO activitypage (title, description, img, banner) VALUES ('Styrketræning', 'Tobias bænker 982 kg', 'img', 'banner');

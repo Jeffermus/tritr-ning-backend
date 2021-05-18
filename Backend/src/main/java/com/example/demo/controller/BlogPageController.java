@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Blog;
-import com.example.demo.repository.BlogRepository;
+import com.example.demo.model.BlogPage;
+import com.example.demo.repository.BlogPageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -10,28 +10,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class BlogController {
+public class BlogPageController {
 
     @Autowired
-    BlogRepository blogRepository;
+    BlogPageRepository blogPageRepository;
 
     //    ==================================================== GET BLOG ================================================
 
 //    ====== SELECT ALL BLOG =====
 
-    @GetMapping("/select/Blogs")
-    public List<Blog> findAllBlogs() {
-        List<Blog> blogs = BlogRepository.findAll();
+    //    ====== SELECT ALL Blogs =====
+    @GetMapping("/select/blogs")
+    public List<BlogPage> getBlogs(){
+        List<BlogPage> blogs = blogPageRepository.findAll();
 
         return blogs;
     }
 
     //    ====== SELECT ONE BLOG =====
     @GetMapping("/select/blog/{id}")
-    public Blog getOneActivityWId(@PathVariable int id){
-        Blog blog = blogRepository.findById(id);
+    public BlogPage getOneBlogWId(@PathVariable int id){
+        BlogPage blogPage = blogPageRepository.findById(id);
 
-        return blog;
+        return blogPage;
+    }
+
+    //    ====== SELECT ALL BLOGS WITH ID =====
+    @GetMapping("/select/all/blogs/{id}")
+    public List<BlogPage> getAllBlogsWId(@PathVariable int id){
+        System.out.println(id);
+        List<BlogPage> blogPages = blogPageRepository.findAllById(id);
+
+        return blogPages;
     }
 
     //    ==================================================== POST BLOG ================================================
@@ -40,10 +50,10 @@ public class BlogController {
 
     @PostMapping(value = "/insert/blog", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Blog insertBlog(@RequestBody Blog blog) {
-        System.out.println(blog);
+    public BlogPage insertBlog(@RequestBody BlogPage blogPage) {
+        System.out.println(blogPage);
 
-        return blogRepository.save(blog);
+        return blogPageRepository.save(blogPage);
     }
 
     //    ==================================================== DELETE BLOG ================================================
@@ -53,7 +63,7 @@ public class BlogController {
     public void deleteBlog(@PathVariable int id){
         System.out.println("ID================"+id);
         try {
-            blogRepository.deleteById(id);
+            blogPageRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
             System.out.println("FEJL i DELETE =" + ex.getMessage());
         }

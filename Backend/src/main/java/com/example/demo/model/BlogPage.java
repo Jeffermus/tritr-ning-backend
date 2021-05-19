@@ -5,86 +5,87 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
 public class BlogPage {
 
     @Id
-    public int Id;
+    public int id;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String Title;
-    private String Description;
-    private String Img;
-    private String Date;
-    private String Author;
+    private String title;
+    private String description;
+    private String img;
+    private String datetime;
+    private String author;
 
     public BlogPage() {
     }
 
-    public BlogPage(String Title, String Description, String Img, String Date, String Author) {
-        this.Title = Title;
-        this.Description = Description;
-        this.Img = Img;
-        this.Date = Date;
-        this.Author = Author;
+    public BlogPage(String title, String description, String img, String datetime, String author) {
+        this.title = title;
+        this.description = description;
+        this.img = img;
+        this.datetime = datetime;
+        this.author = author;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getImg() {
-        return Img;
+        return img;
     }
 
     public void setImg(String img) {
-        Img = img;
+        this.img = img;
     }
 
-    public String getDate() {
-        return Date;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setDate(String date) {
-        Date = date;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
     public String getAuthor() {
-        return Author;
+        return author;
     }
 
     public void setAuthor(String author) {
-        Author = author;
+        this.author = author;
     }
 
     @Override
     public String toString() {
         return "BlogPage{" +
-                "Id=" + Id +
-                ", Title='" + Title + '\'' +
-                ", Description='" + Description + '\'' +
-                ", Img='" + Img + '\'' +
-                ", Date='" + Date + '\'' +
-                ", Author='" + Author + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", img='" + img + '\'' +
+                ", datetime='" + datetime + '\'' +
+                ", author='" + author + '\'' +
                 '}';
     }
 }

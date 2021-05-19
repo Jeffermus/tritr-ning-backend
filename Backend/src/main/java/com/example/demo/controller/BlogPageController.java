@@ -19,7 +19,6 @@ public class BlogPageController {
 
 //    ====== SELECT ALL BLOG =====
 
-    //    ====== SELECT ALL Blogs =====
     @GetMapping("/select/blogs")
     public List<BlogPage> getBlogs(){
         List<BlogPage> blogs = blogPageRepository.findAll();
@@ -56,7 +55,15 @@ public class BlogPageController {
         return blogPageRepository.save(blogPage);
     }
 
-//    rediger blog
+    //    =======  EDIT BLOG =====
+
+    @PostMapping(value="/edit/blog", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public BlogPage editBlog(@RequestBody BlogPage blogPage){
+
+        return blogPageRepository.save(blogPage);
+
+    }
 
     //    ==================================================== DELETE BLOG ================================================
 

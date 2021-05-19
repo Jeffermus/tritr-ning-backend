@@ -56,6 +56,8 @@ public class BlogPageController {
         return blogPageRepository.save(blogPage);
     }
 
+//    rediger blog
+
     //    ==================================================== DELETE BLOG ================================================
 
     @ResponseStatus(code=HttpStatus.OK)

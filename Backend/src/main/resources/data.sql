@@ -1,1 +1,1 @@
-INSERT INTO activitypage (title, description, img, banner) VALUES ('Styrketræning', 'Tobias bænker 982 kg', 'img', 'banner');
+INSERT INTO activity_page (title, description, img, banner) VALUES ('Styrketræning', 'Tobias bænker 982 kg', 'img', 'banner');

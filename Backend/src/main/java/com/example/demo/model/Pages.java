@@ -5,28 +5,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
-public class BlogPage {
-
+public class Pages {
     @Id
-    public int id;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String title;
-    private String description;
-    private String img;
-    private String datetime;
-    private String author;
+    public int id;
+    public String title;
+    public String description;
+    public String img;
+    public String banner;
 
-    public BlogPage() {
+    public Pages() {
     }
 
-    public BlogPage(String title, String description, String img, String datetime, String author) {
+    public Pages(String title, String description, String img, String banner) {
         this.title = title;
         this.description = description;
         this.img = img;
-        this.datetime = datetime;
-        this.author = author;
+        this.banner = banner;
     }
 
     public int getId() {
@@ -61,31 +57,22 @@ public class BlogPage {
         this.img = img;
     }
 
-    public String getDatetime() {
-        return datetime;
+    public String getBanner() {
+        return banner;
     }
 
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setBanner(String banner) {
+        this.banner = banner;
     }
 
     @Override
     public String toString() {
-        return "BlogPage{" +
+        return "Activity{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", img='" + img + '\'' +
-                ", datetime='" + datetime + '\'' +
-                ", author='" + author + '\'' +
+                ", banner='" + banner + '\'' +
                 '}';
     }
 }

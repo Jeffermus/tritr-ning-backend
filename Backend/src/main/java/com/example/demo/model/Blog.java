@@ -5,24 +5,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-public class ActivityPage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
-    public String title;
-    public String description;
-    public String img;
-    public String banner;
 
-    public ActivityPage() {
+@Entity
+public class Blog {
+
+    @Id
+    public int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String title;
+    private String description;
+    private String img;
+    private String datetime;
+    private String author;
+
+    public Blog() {
     }
 
-    public ActivityPage(String title, String description, String img, String banner) {
+    public Blog(String title, String description, String img, String datetime, String author) {
         this.title = title;
         this.description = description;
         this.img = img;
-        this.banner = banner;
+        this.datetime = datetime;
+        this.author = author;
     }
 
     public int getId() {
@@ -57,22 +61,31 @@ public class ActivityPage {
         this.img = img;
     }
 
-    public String getBanner() {
-        return banner;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setBanner(String banner) {
-        this.banner = banner;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     @Override
     public String toString() {
-        return "Activity{" +
+        return "BlogPage{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", img='" + img + '\'' +
-                ", banner='" + banner + '\'' +
+                ", datetime='" + datetime + '\'' +
+                ", author='" + author + '\'' +
                 '}';
     }
 }

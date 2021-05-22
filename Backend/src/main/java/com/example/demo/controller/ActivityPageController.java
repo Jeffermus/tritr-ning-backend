@@ -52,7 +52,7 @@ public class ActivityPageController {
 
     }
 
-    @PostMapping(value="/edit/activity", consumes = "application/json")
+    @PutMapping(value="/edit/activity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public ActivityPage editActivity(@RequestBody ActivityPage activityPage){
 

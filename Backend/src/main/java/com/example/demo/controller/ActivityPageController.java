@@ -15,7 +15,7 @@ public class ActivityPageController {
     @Autowired
     ActivityPageRepository activityPageRepository;
 
-    //    ==================================================== GET Activity ================================================
+    //    ==================================================== GET Activity ============================================
 
     //    ====== SELECT ALL ACTIVITIES =====
     @GetMapping("/select/activities")
@@ -42,7 +42,7 @@ public class ActivityPageController {
         return activities;
     }
 
-    //    ==================================================== POST PROFILES ================================================
+    //    ==================================================== POST PROFILES ===========================================
 
     @PostMapping(value="/insert/activity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)

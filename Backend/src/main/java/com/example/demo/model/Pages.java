@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class ActivityPage {
+public class Pages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
@@ -15,10 +15,10 @@ public class ActivityPage {
     public String img;
     public String banner;
 
-    public ActivityPage() {
+    public Pages() {
     }
 
-    public ActivityPage(String title, String description, String img, String banner) {
+    public Pages(String title, String description, String img, String banner) {
         this.title = title;
         this.description = description;
         this.img = img;

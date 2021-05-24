@@ -10,17 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//@CrossOrigin(origins = "http://localhost:8080/")
 public class ReviewController {
 
     @Autowired
     ReviewRepository reviewRepository;
 
 
-    //    ==================================================== GET BLOG ================================================
+    //    ==================================================== GET REVIEW ================================================
 
 
     //    ====== SELECT ALL REVIEW =====
-    @GetMapping("/select/reviews")
+    @GetMapping("/select/all/reviews")
     public List<Review> getReview(){
         List<Review> reviews = reviewRepository.findAll();
 
@@ -35,16 +36,8 @@ public class ReviewController {
         return review;
     }
 
-    //    ====== SELECT ALL REVIEWS WITH ID =====
-    @GetMapping("/select/all/review/{id}")
-    public List<Review> getAllReviewsWId(@PathVariable int id){
-        System.out.println(id);
-        List<Review> reviews = reviewRepository.findAllById(id);
 
-        return reviews;
-    }
-
-    //    ==================================================== POST REVIEW ================================================
+    //    ==================================================== POST REVIEW =============================================
 
 //    =======  INSERT REVIEW =====
 
@@ -58,9 +51,10 @@ public class ReviewController {
 
     //    =======  EDIT REVIEW =====
 
-    @PostMapping(value="/edit/review", consumes = "application/json")
+    @PutMapping(value="/edit/review/{id}", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Review editReview(@RequestBody Review review){
+        System.out.println(review);
 
         return reviewRepository.save(review);
     }

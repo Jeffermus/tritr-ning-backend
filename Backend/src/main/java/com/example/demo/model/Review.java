@@ -8,20 +8,20 @@ import javax.persistence.Id;
 @Entity
 public class Review {
     @Id
-    public int id;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public int id;
     private String author;
     private String reviewImage;
-    private String editorCopy;
+    private String description;
 
     public Review(){
 
     }
 
-    public Review(String author, String reviewImage, String editorCopy) {
+    public Review(String author, String reviewImage, String description) {
         this.author = author;
         this.reviewImage = reviewImage;
-        this.editorCopy = editorCopy;
+        this.description = description;
     }
 
     public int getId() {
@@ -48,11 +48,11 @@ public class Review {
         this.reviewImage = reviewImage;
     }
 
-    public String getEditorCopy() {
-        return editorCopy;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEditorCopy(String editorCopy) {
-        this.editorCopy = editorCopy;
+    public void setDescription(String editorCopy) {
+        this.description = editorCopy;
     }
 }

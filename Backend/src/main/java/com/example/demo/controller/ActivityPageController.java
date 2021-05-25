@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8080")
 public class ActivityPageController {
 
     @Autowired
@@ -53,11 +53,14 @@ public class ActivityPageController {
 
     }
 
-    @PutMapping(value="/edit/activity", consumes = "application/json")
+    @PutMapping(value="/edit/activity/{title}", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Pages editActivity(@RequestBody Pages pages){
+    public Pages editActivityWId(@PathVariable String title){
+        System.out.println(title);
+        Pages pages = activityPageRepository.findByTitle(title);
+        System.out.println(pages);
 
-        return activityPageRepository.save(pages);
+        return pages;
 
     }
 //    ==================================================== DELETE PROFILES =============================================

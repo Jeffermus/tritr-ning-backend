@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class BlogPage {
+public class Blog {
 
     @Id
     public int id;
@@ -18,10 +18,10 @@ public class BlogPage {
     private String datetime;
     private String author;
 
-    public BlogPage() {
+    public Blog() {
     }
 
-    public BlogPage(String title, String description, String img, String datetime, String author) {
+    public Blog(String title, String description, String img, String datetime, String author) {
         this.title = title;
         this.description = description;
         this.img = img;

@@ -5,8 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
-public class ActivityPage {
+public class PageList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
@@ -15,10 +16,12 @@ public class ActivityPage {
     public String img;
     public String banner;
 
-    public ActivityPage() {
+
+    public PageList() {
     }
 
-    public ActivityPage(String title, String description, String img, String banner) {
+
+    public PageList(String title, String description, String img, String banner) {
         this.title = title;
         this.description = description;
         this.img = img;
@@ -67,7 +70,7 @@ public class ActivityPage {
 
     @Override
     public String toString() {
-        return "Activity{" +
+        return "PageList{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

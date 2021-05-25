@@ -1,11 +1,12 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.ActivityPage;
+import com.example.demo.model.Pages;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ActivityPageRepository extends JpaRepository<ActivityPage, Integer> {
-    ActivityPage findByTitle(String title);
-    List<ActivityPage> findAllByTitle(String title);
+public interface ActivityPageRepository extends JpaRepository<Pages, Integer> {
+    Pages findByTitle(String title);
+    List<Pages> findAllByTitle(String title);
+    Pages deleteById(int id);
 }

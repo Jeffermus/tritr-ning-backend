@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ActivityPage;
+import com.example.demo.model.Pages;
 import com.example.demo.repository.ActivityPageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,53 +10,54 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class ActivityPageController {
 
     @Autowired
     ActivityPageRepository activityPageRepository;
 
-    //    ==================================================== GET Activity ================================================
+    //    ==================================================== GET Activity ============================================
 
     //    ====== SELECT ALL ACTIVITIES =====
     @GetMapping("/select/activities")
-    public List<ActivityPage> getActivity() {
-        List<ActivityPage> activities = activityPageRepository.findAll();
+    public List<Pages> getActivity() {
+        List<Pages> activities = activityPageRepository.findAll();
 
         return activities;
 
     }
     //    ====== SELECT ONE ACTIVITIES WITH TITLE =====
         @GetMapping("/select/activity/{title}")
-        public ActivityPage getOneActivityWTitle(@PathVariable String title) {
-            ActivityPage activityPage = activityPageRepository.findByTitle(title);
+        public Pages getOneActivityWTitle(@PathVariable String title) {
+            Pages pages = activityPageRepository.findByTitle(title);
 
-            return activityPage;
+            return pages;
         }
 
     //    ====== SELECT ALL ACTIVITIES WITH TITLE =====
     @GetMapping("/select/all/activities/{title}")
-    public List<ActivityPage> getAllEventsWTitle(@PathVariable String title){
+    public List<Pages> getAllEventsWTitle(@PathVariable String title){
         System.out.println(title);
-        List<ActivityPage> activities = activityPageRepository.findAllByTitle(title);
+        List<Pages> activities = activityPageRepository.findAllByTitle(title);
 
         return activities;
     }
 
-    //    ==================================================== POST PROFILES ================================================
+    //    ==================================================== POST PROFILES ===========================================
 
     @PostMapping(value="/insert/activity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public ActivityPage insertActivity(@RequestBody ActivityPage activityPage){
+    public Pages insertActivity(@RequestBody Pages pages){
 
-        return activityPageRepository.save(activityPage);
+        return activityPageRepository.save(pages);
 
     }
 
-    @PostMapping(value="/edit/activity", consumes = "application/json")
+    @PutMapping(value="/edit/activity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public ActivityPage editActivity(@RequestBody ActivityPage activityPage){
+    public Pages editActivity(@RequestBody Pages pages){
 
-        return activityPageRepository.save(activityPage);
+        return activityPageRepository.save(pages);
 
     }
 //    ==================================================== DELETE PROFILES =============================================

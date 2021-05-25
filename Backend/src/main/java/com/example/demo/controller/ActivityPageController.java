@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+//@CrossOrigin(origins = "http://localhost:8080")
 public class ActivityPageController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class ActivityPageController {
     }
     //    ====== SELECT ONE ACTIVITIES WITH TITLE =====
         @GetMapping("/select/activity/{title}")
-        public Pages getOneActivityWTitle(@PathVariable String title) {
+        public Pages getOneActivityWId(@PathVariable String title) {
             Pages pages = activityPageRepository.findByTitle(title);
 
             return pages;

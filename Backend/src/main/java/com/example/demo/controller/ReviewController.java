@@ -49,17 +49,23 @@ public class ReviewController {
         return reviewRepository.save(review);
     }
 
-    //    =======  EDIT REVIEW =====
+    //    =======  UPDATE REVIEW =====
 
-    @PutMapping(value="/edit/review/{id}", consumes = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Review editReview(@RequestBody Review review){
-        System.out.println(review);
+    @PostMapping(value="/edit/review/{id}", consumes = "application/json")
+    @ResponseStatus(HttpStatus.OK)
 
-        return reviewRepository.save(review);
+    public void updateReview(@RequestBody Review review){
+        System.out.println("REVIEW==="+review);
+        Review oneReview = reviewRepository.findById(review.getId());
+        oneReview.setAuthor(review.getAuthor());
+        oneReview.setDescription(review.getDescription());
+        oneReview.setReviewImage(review.getReviewImage());
+        System.out.println("ONE REVIEW ==="+oneReview);
+
+        reviewRepository.save(oneReview);
     }
 
-    //    ==================================================== DELETE BLOG ================================================
+    //    ==================================================== DELETE BLOG =============================================
 
     @ResponseStatus(code=HttpStatus.OK)
     @PostMapping("/delete/review/{id}")

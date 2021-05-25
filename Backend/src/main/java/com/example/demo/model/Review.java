@@ -55,4 +55,14 @@ public class Review {
     public void setDescription(String editorCopy) {
         this.description = editorCopy;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", author='" + author + '\'' +
+                ", reviewImage='" + reviewImage + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

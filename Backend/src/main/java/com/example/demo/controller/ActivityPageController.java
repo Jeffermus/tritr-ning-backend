@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class ActivityPageController {
 
     @Autowired
     ActivityPageRepository activityPageRepository;
 
-    //    ==================================================== GET Activity ================================================
+    //    ==================================================== GET Activity ============================================
 
     //    ====== SELECT ALL ACTIVITIES =====
     @GetMapping("/select/activities")
@@ -27,7 +28,7 @@ public class ActivityPageController {
     }
     //    ====== SELECT ONE ACTIVITIES WITH TITLE =====
         @GetMapping("/select/activity/{title}")
-        public Pages getOneActivityWTitle(@PathVariable String title) {
+        public Pages getOneActivityWId(@PathVariable String title) {
             Pages pages = activityPageRepository.findByTitle(title);
 
             return pages;
@@ -42,7 +43,7 @@ public class ActivityPageController {
         return activities;
     }
 
-    //    ==================================================== POST PROFILES ================================================
+    //    ==================================================== POST PROFILES ===========================================
 
     @PostMapping(value="/insert/activity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
@@ -52,11 +53,14 @@ public class ActivityPageController {
 
     }
 
-    @PostMapping(value="/edit/activity", consumes = "application/json")
+    @PutMapping(value="/edit/activity/{title}", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Pages editActivity(@RequestBody Pages pages){
+    public Pages editActivityWId(@PathVariable String title){
+        System.out.println(title);
+        Pages pages = activityPageRepository.findByTitle(title);
+        System.out.println(pages);
 
-        return activityPageRepository.save(pages);
+        return pages;
 
     }
 //    ==================================================== DELETE PROFILES =============================================

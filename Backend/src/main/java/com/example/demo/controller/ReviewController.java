@@ -51,7 +51,7 @@ public class ReviewController {
 
     //    =======  UPDATE REVIEW =====
 
-    @PostMapping(value="/edit/review/{id}", consumes = "application/json")
+    @PutMapping(value="/edit/review", consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public void updateReview(@RequestBody Review review){
         System.out.println("REVIEW==="+review);

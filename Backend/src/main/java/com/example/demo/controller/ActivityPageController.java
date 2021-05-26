@@ -53,14 +53,22 @@ public class ActivityPageController {
 
     }
 
-    @PutMapping(value="/edit/activity/{title}", consumes = "application/json")
+    @PutMapping(value="/edit/activity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Pages editActivityWId(@PathVariable String title){
-        System.out.println(title);
-        Pages pages = activityPageRepository.findByTitle(title);
+    public void editActivityWId(@RequestBody Pages pages){
+        System.out.println(pages.getTitle());
+
+        Pages objectToUpdate = activityPageRepository.findByTitle(pages.getTitle());
+
+        objectToUpdate.setDescription(pages.getDescription());
+        objectToUpdate.setBanner(pages.getBanner());
+        objectToUpdate.setImg(pages.getImg());
+        objectToUpdate.setTitle(pages.getTitle());
         System.out.println(pages);
 
-        return pages;
+
+
+        activityPageRepository.save(objectToUpdate);
 
     }
 //    ==================================================== DELETE PROFILES =============================================

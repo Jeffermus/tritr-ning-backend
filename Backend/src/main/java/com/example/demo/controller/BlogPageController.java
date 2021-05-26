@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+//import com.example.demo.model.Blog;
 import com.example.demo.model.BlogPage;
 import com.example.demo.repository.BlogPageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class BlogPageController {
 
     @Autowired
@@ -27,9 +29,9 @@ public class BlogPageController {
     }
 
     //    ====== SELECT ONE BLOG =====
-    @GetMapping("/select/blog/{id}")
-    public BlogPage getOneBlogWId(@PathVariable int id){
-        BlogPage blogPage = blogPageRepository.findById(id);
+    @GetMapping("/select/blog/{title}")
+    public BlogPage getOneBlogWTitle(@PathVariable String title){
+        BlogPage blogPage = blogPageRepository.findByTitle(title);
 
         return blogPage;
     }
@@ -57,18 +59,28 @@ public class BlogPageController {
 
     //    =======  EDIT BLOG =====
 
-    @PostMapping(value="/edit/blog", consumes = "application/json")
+    @PutMapping(value="/edit/blog", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogPage editBlog(@RequestBody BlogPage blogPage){
+    public void editBlog(@RequestBody BlogPage blogPage){
+        System.out.println(blogPage.getId());
 
-        return blogPageRepository.save(blogPage);
+        BlogPage objectToUpdate = blogPageRepository.findById(blogPage.getId());
+
+        objectToUpdate.setAuthor(blogPage.getAuthor());
+        objectToUpdate.setDescription(blogPage.getDescription());
+        objectToUpdate.setImg(blogPage.getImg());
+        objectToUpdate.setTitle(blogPage.getTitle());
+        objectToUpdate.setDatetime(blogPage.getDatetime());
+        System.out.println(blogPage);
+
+        blogPageRepository.save(objectToUpdate);
 
     }
 
     //    ==================================================== DELETE BLOG ================================================
 
     @ResponseStatus(code=HttpStatus.OK)
-    @PostMapping("/delete/blog/{id}")
+    @DeleteMapping("/delete/blog/{id}")
     public void deleteBlog(@PathVariable int id){
         System.out.println("ID================"+id);
         try {

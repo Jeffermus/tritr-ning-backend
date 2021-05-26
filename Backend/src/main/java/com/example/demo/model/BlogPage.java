@@ -10,8 +10,8 @@ import javax.persistence.Id;
 public class BlogPage {
 
     @Id
-    public int id;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public int id;
     private String title;
     private String description;
     private String img;

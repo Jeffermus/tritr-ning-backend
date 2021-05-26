@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BlogPageRepository extends JpaRepository<BlogPage, Integer> {
-  BlogPage findById(int id);
   List<BlogPage> findAllById(int id);
+  BlogPage deleteById(int id);
+  BlogPage findByTitle(String title);
+  BlogPage findById(int id);
 }

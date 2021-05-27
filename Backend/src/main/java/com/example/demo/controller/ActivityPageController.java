@@ -59,8 +59,10 @@ public class ActivityPageController {
         System.out.println(pages.getTitle());
 
         Pages objectToUpdate = activityPageRepository.findByTitle(pages.getTitle());
-
-        objectToUpdate.setDescription(pages.getDescription());
+        System.out.println(objectToUpdate);
+        if (pages.description != null){
+            objectToUpdate.setDescription(pages.getDescription());
+        }
         objectToUpdate.setBanner(pages.getBanner());
         objectToUpdate.setImg(pages.getImg());
         objectToUpdate.setTitle(pages.getTitle());

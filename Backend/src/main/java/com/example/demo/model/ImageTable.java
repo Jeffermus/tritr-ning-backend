@@ -1,7 +1,10 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Arrays;
 import java.util.Set;
 
 @Entity
@@ -21,6 +24,7 @@ public class ImageTable {
     @Column(name = "picByte", length = 10000000)
     private byte[] picByte;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reference_id", referencedColumnName = "id")
     private Review review;
@@ -73,5 +77,16 @@ public class ImageTable {
 
     public void setPicByte(byte[] picByte) {
         this.picByte = picByte;
+    }
+
+    @Override
+    public String toString() {
+        return "ImageTable{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", picByte=" + Arrays.toString(picByte) +
+                ", review=" + review +
+                '}';
     }
 }

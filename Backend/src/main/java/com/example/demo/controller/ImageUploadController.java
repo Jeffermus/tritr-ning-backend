@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ImageTable;
+import com.example.demo.model.Pages;
 import com.example.demo.model.Review;
+import com.example.demo.repository.ActivityPageRepository;
 import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.ReviewRepository;
 import com.example.demo.service.CompressService;
@@ -25,22 +27,34 @@ public class ImageUploadController {
 
     @Autowired
     ImageRepository imageRepository;
-
     @Autowired
     ReviewRepository reviewRepository;
+    @Autowired
+    ActivityPageRepository activityPageRepository;
 
     CompressService compressService = new CompressService();
 
 //    UPLOAD IMAGE -------
     @PostMapping(value="/upload", consumes =  "multipart/form-data")
-    public BodyBuilder uploadImage(@RequestParam("imageFile")MultipartFile file, @RequestParam("author_id") int author_id) throws IOException {
+    public BodyBuilder uploadImage(@RequestParam("imageFile")MultipartFile file, @RequestParam("author_id") int author_id, @RequestParam("page_id") int page_id) throws IOException {
         System.out.println("Orignal Image Byte Size - " + file.getBytes().length);
 
-        Review getReview = reviewRepository.getOne(author_id);
+        if(author_id != 0){
+            Review getReview = reviewRepository.getOne(author_id);
 
-        ImageTable img = new ImageTable(file.getOriginalFilename(), file.getContentType(), compressService.compressBytes(file.getBytes()));
-        img.setReview(getReview);
-        imageRepository.save(img);
+            ImageTable img = new ImageTable(file.getOriginalFilename(), file.getContentType(), compressService.compressBytes(file.getBytes()));
+            img.setReview(getReview);
+            imageRepository.save(img);
+        }
+        if(page_id != 0){
+            Pages getPage = activityPageRepository.getOne(page_id);
+
+            ImageTable img = new ImageTable(file.getOriginalFilename(), file.getContentType(), compressService.compressBytes(file.getBytes()));
+            img.setPages(getPage);
+            imageRepository.save(img);
+        }
+
+
         return ResponseEntity.status(HttpStatus.OK);
     }
 
@@ -50,7 +64,7 @@ public class ImageUploadController {
 //        System.out.println("Orignal Image Byte Size - " + file.getBytes().length);
         System.out.println("FIRST ID ======="+author_id);
 
-        ImageTable objectToUpdate = imageRepository.findByReferenceId(author_id);
+        ImageTable objectToUpdate = imageRepository.findByActivityId(author_id);
 
         System.out.println("IMAGE========="+objectToUpdate);
 

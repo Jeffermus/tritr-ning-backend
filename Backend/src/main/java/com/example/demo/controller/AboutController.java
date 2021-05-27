@@ -31,7 +31,7 @@ public class AboutController {
         return aboutRepository.save(about);
     }
 
-    @PutMapping(value = "/edit/about", consumes = "application/json")
+    @PostMapping(value = "/edit/about{id}", consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public void editAbout(@RequestBody About about){
         System.out.println(about.getId());

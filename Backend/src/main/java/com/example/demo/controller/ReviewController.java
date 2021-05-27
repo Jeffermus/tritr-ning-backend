@@ -36,6 +36,14 @@ public class ReviewController {
         return review;
     }
 
+    //    ====== SELECT ONE REVIEW W AUTHOR =====
+    @GetMapping("/select/one/review/{author}")
+    public Review getOneReviewWAuthor(@PathVariable String author){
+        Review review = reviewRepository.findByAuthor(author);
+
+        return review;
+    }
+
 
     //    ==================================================== POST REVIEW =============================================
 

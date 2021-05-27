@@ -2,26 +2,17 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Set;
 
 @Entity
 @Table(name = "image_table")
-public class ImageModel {
-
-    public ImageModel() {
-        super();
-    }
-
-    public ImageModel(String name, String type, byte[] picByte) {
-        this.name = name;
-        this.type = type;
-        this.picByte = picByte;
-    }
+public class ImageTable {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+    @Column(name = "image_name")
     private String name;
     @Column(name = "type")
     private String type;
@@ -29,6 +20,36 @@ public class ImageModel {
         //which is more than the default length for picByte column
     @Column(name = "picByte", length = 10000000)
     private byte[] picByte;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "reference_id", referencedColumnName = "id")
+    private Review review;
+
+    public ImageTable() {
+        super();
+    }
+
+    public ImageTable(String name, String type, byte[] picByte) {
+        this.name = name;
+        this.type = type;
+        this.picByte = picByte;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
 
     public String getName() {
         return name;

@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
     Review findById(int id);
     Review deleteById(int id);
+    Review findByAuthor(String author);
 }

@@ -1,9 +1,6 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Review {
@@ -14,6 +11,9 @@ public class Review {
     private String reviewImage;
     private String description;
 
+    @OneToOne(mappedBy = "review")
+    private ImageTable imageTable;
+
     public Review(){
 
     }
@@ -22,6 +22,14 @@ public class Review {
         this.author = author;
         this.reviewImage = reviewImage;
         this.description = description;
+    }
+
+    public ImageTable getImageTable() {
+        return imageTable;
+    }
+
+    public void setImageTable(ImageTable imageTable) {
+        this.imageTable = imageTable;
     }
 
     public int getId() {

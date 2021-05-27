@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+    private int id;
     private String author;
     private String reviewImage;
     private String description;

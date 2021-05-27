@@ -56,6 +56,9 @@ public class ReviewController {
     public void updateReview(@RequestBody Review review){
         System.out.println("REVIEW==="+review);
         Review oneReview = reviewRepository.findById(review.getId());
+        if (review.getDescription() != null){
+            oneReview.setDescription(review.getDescription());
+        }
         oneReview.setAuthor(review.getAuthor());
         oneReview.setDescription(review.getDescription());
         oneReview.setReviewImage(review.getReviewImage());

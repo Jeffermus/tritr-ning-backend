@@ -9,11 +9,11 @@ import javax.persistence.Id;
 public class Pages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
-    public String title;
-    public String description;
-    public String img;
-    public String banner;
+    private int id;
+    private String title;
+    private String description;
+    private String img;
+    private String banner;
 
     public Pages() {
     }

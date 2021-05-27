@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
-public class ActivityPageController {
+public class ActivityPageController{
 
     @Autowired
     ActivityPageRepository activityPageRepository;
@@ -60,7 +60,7 @@ public class ActivityPageController {
 
         Pages objectToUpdate = activityPageRepository.findByTitle(pages.getTitle());
         System.out.println(objectToUpdate);
-        if (pages.description != null){
+        if (pages.getDescription() != null){
             objectToUpdate.setDescription(pages.getDescription());
         }
         objectToUpdate.setBanner(pages.getBanner());

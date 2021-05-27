@@ -11,7 +11,7 @@ public class BlogPage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+    private int id;
     private String title;
     private String description;
     private String img;

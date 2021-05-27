@@ -65,7 +65,9 @@ public class BlogPageController {
         System.out.println(blogPage.getId());
 
         BlogPage objectToUpdate = blogPageRepository.findById(blogPage.getId());
-
+        if (objectToUpdate.getDescription() != null){
+            objectToUpdate.setDescription(blogPage.getDescription());
+        }
         objectToUpdate.setAuthor(blogPage.getAuthor());
         objectToUpdate.setDescription(blogPage.getDescription());
         objectToUpdate.setImg(blogPage.getImg());

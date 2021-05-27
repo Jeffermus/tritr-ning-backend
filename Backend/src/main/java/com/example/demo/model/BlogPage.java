@@ -12,11 +12,11 @@ public class BlogPage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
-    private String title;
-    private String description;
-    private String img;
-    private String datetime;
-    private String author;
+    public String title;
+    public String description;
+    public String img;
+    public String datetime;
+    public String author;
 
     public BlogPage() {
     }

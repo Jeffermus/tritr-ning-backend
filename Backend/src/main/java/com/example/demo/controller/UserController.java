@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Auth;
 import com.example.demo.model.Users;
+import com.example.demo.repository.AuthRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,10 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AuthRepository authRepository;
 
 
 //    ==================================================== GET USERS ===================================================
@@ -39,6 +45,14 @@ public class UserController {
         return userRepository.save(users);
     }
 
+    //     === INSERT AUTH ===
+    @PostMapping(value = "/insert/admin/auth", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Auth insertAuth(@RequestBody Auth auth) {
+        System.out.println(auth);
+
+        return authRepository.save(auth);
+    }
 
 //    ==================================================== DELETE USER ==============================================
 

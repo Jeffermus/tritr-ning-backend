@@ -12,7 +12,7 @@ public interface ImageRepository extends JpaRepository <ImageTable, Long> {
     Optional<ImageTable> findByName(String name);
     @Query("FROM ImageTable WHERE review.id = ?1")
 //    @Query(value = "SELECT * FROM image_table WHERE reference_id = ?1",nativeQuery = true)
-    ImageTable findByReferenceId(int id);
+    ImageTable findByActivityId(int id);
 
 
 }

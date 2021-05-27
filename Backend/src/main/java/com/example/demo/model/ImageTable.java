@@ -26,8 +26,13 @@ public class ImageTable {
 
     @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reference_id", referencedColumnName = "id")
+    @JoinColumn(name = "review_id", referencedColumnName = "id")
     private Review review;
+
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "page_id", referencedColumnName = "id")
+    private Pages pages;
 
     public ImageTable() {
         super();
@@ -37,6 +42,14 @@ public class ImageTable {
         this.name = name;
         this.type = type;
         this.picByte = picByte;
+    }
+
+    public Pages getPages() {
+        return pages;
+    }
+
+    public void setPages(Pages pages) {
+        this.pages = pages;
     }
 
     public Long getId() {

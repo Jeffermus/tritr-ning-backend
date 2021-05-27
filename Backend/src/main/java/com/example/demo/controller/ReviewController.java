@@ -60,7 +60,7 @@ public class ReviewController {
 
     @PutMapping(value="/edit/review", consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public void updateReview(@RequestBody Review review){
+    public Review updateReview(@RequestBody Review review){
         System.out.println("REVIEW==="+review);
         Review oneReview = reviewRepository.findById(review.getId());
         if (review.getDescription() != null){
@@ -71,7 +71,7 @@ public class ReviewController {
         oneReview.setReviewImage(review.getReviewImage());
         System.out.println("ONE REVIEW ==="+oneReview);
 
-        reviewRepository.save(oneReview);
+        return reviewRepository.save(oneReview);
     }
 
     //    ==================================================== DELETE BLOG =============================================

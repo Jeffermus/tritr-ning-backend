@@ -1,13 +1,13 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.BlogPage;
+import com.example.demo.model.Blog;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface BlogPageRepository extends JpaRepository<BlogPage, Integer> {
-  List<BlogPage> findAllById(int id);
-  BlogPage deleteById(int id);
-  BlogPage findByTitle(String title);
-  BlogPage findById(int id);
+public interface BlogPageRepository extends JpaRepository<Blog, Integer> {
+  List<Blog> findAllById(int id);
+  Blog deleteById(int id);
+  Blog findByTitle(String title);
+  Blog findById(int id);
 }

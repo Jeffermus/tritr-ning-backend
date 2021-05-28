@@ -1,13 +1,12 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 
 @Entity
-public class BlogPage {
+public class Blog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +17,27 @@ public class BlogPage {
     private String datetime;
     private String author;
 
-    public BlogPage() {
+    @JsonBackReference
+    @OneToOne(mappedBy = "blog")
+    private ImageTable imageTable;
+
+    public Blog() {
     }
 
-    public BlogPage(String title, String description, String img, String datetime, String author) {
+    public Blog(String title, String description, String img, String datetime, String author) {
         this.title = title;
         this.description = description;
         this.img = img;
         this.datetime = datetime;
         this.author = author;
+    }
+
+    public ImageTable getImageTable() {
+        return imageTable;
+    }
+
+    public void setImageTable(ImageTable imageTable) {
+        this.imageTable = imageTable;
     }
 
     public int getId() {

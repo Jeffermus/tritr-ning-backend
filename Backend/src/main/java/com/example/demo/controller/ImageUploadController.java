@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.BlogPage;
 import com.example.demo.model.ImageTable;
 import com.example.demo.model.Pages;
 import com.example.demo.model.Review;
@@ -32,8 +33,10 @@ public class ImageUploadController {
     ReviewRepository reviewRepository;
     @Autowired
     ActivityPageRepository activityPageRepository;
+    @Autowired
+    BlogPageRepository blogPageRepository;
 
-    CompressService compressService = new CompressService();
+        CompressService compressService = new CompressService();
 
 //    UPLOAD IMAGE -------
     @PostMapping(value="/upload", consumes =  "multipart/form-data")
@@ -55,10 +58,10 @@ public class ImageUploadController {
             imageRepository.save(img);
         }
         if(blog_id !=0){
-            Blog getBlog = blogPageRepository.getOne(blog_id);
+            BlogPage getBlogPage = blogPageRepository.getOne(blog_id);
 
             ImageTable img = new ImageTable(file.getOriginalFilename(), file.getContentType(), compressService.compressBytes(file.getBytes()));
-            img.setBlog(getBlog());
+            img.setBlog(getBlogPage);
             imageRepository.save(img);
         }
 

@@ -37,7 +37,7 @@ public class ImageTable {
     @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "blog_id", referencedColumnName = "id")
-    private Blog blog;
+    private BlogPage blogpage;
 
     public ImageTable() {
         super();
@@ -49,12 +49,12 @@ public class ImageTable {
         this.picByte = picByte;
     }
 
-    public Blog getBlog() {
-        return blog;
+    public BlogPage getBlog() {
+        return blogpage;
     }
 
-    public void setBlog(Blog blog) {
-        this.blog = blog;
+    public void setBlog(BlogPage blogpage) {
+        this.blogpage = blogpage;
     }
 
     public Pages getPages() {

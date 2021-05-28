@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.BlogPage;
 import com.example.demo.model.ImageTable;
 import com.example.demo.model.Pages;
 import com.example.demo.model.Review;
 import com.example.demo.repository.ActivityPageRepository;
+import com.example.demo.repository.BlogPageRepository;
 import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.ReviewRepository;
 import com.example.demo.service.CompressService;
@@ -31,12 +33,14 @@ public class ImageUploadController {
     ReviewRepository reviewRepository;
     @Autowired
     ActivityPageRepository activityPageRepository;
+    @Autowired
+    BlogPageRepository blogPageRepository;
 
-    CompressService compressService = new CompressService();
+        CompressService compressService = new CompressService();
 
 //    UPLOAD IMAGE -------
     @PostMapping(value="/upload", consumes =  "multipart/form-data")
-    public BodyBuilder uploadImage(@RequestParam("imageFile")MultipartFile file, @RequestParam("author_id") int author_id, @RequestParam("page_id") int page_id) throws IOException {
+    public BodyBuilder uploadImage(@RequestParam("imageFile")MultipartFile file, @RequestParam("author_id") int author_id, @RequestParam("page_id") int page_id, @RequestParam("blog_id") int blog_id) throws IOException {
         System.out.println("Orignal Image Byte Size - " + file.getBytes().length);
 
         if(author_id != 0){
@@ -51,6 +55,13 @@ public class ImageUploadController {
 
             ImageTable img = new ImageTable(file.getOriginalFilename(), file.getContentType(), compressService.compressBytes(file.getBytes()));
             img.setPages(getPage);
+            imageRepository.save(img);
+        }
+        if(blog_id !=0){
+            BlogPage getBlogPage = blogPageRepository.getOne(blog_id);
+
+            ImageTable img = new ImageTable(file.getOriginalFilename(), file.getContentType(), compressService.compressBytes(file.getBytes()));
+            img.setBlog(getBlogPage);
             imageRepository.save(img);
         }
 

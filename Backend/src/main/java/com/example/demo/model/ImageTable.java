@@ -34,6 +34,11 @@ public class ImageTable {
     @JoinColumn(name = "page_id", referencedColumnName = "id")
     private Pages pages;
 
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "blog_id", referencedColumnName = "id")
+    private BlogPage blogpage;
+
     public ImageTable() {
         super();
     }
@@ -42,6 +47,14 @@ public class ImageTable {
         this.name = name;
         this.type = type;
         this.picByte = picByte;
+    }
+
+    public BlogPage getBlog() {
+        return blogpage;
+    }
+
+    public void setBlog(BlogPage blogpage) {
+        this.blogpage = blogpage;
     }
 
     public Pages getPages() {

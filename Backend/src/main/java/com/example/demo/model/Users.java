@@ -1,9 +1,9 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 
 @Entity
 public class Users {
@@ -13,6 +13,11 @@ public class Users {
     private String mail;
     private String password;
     private String enabled;
+
+
+    @JsonBackReference
+    @OneToOne(mappedBy = "users")
+    private Auth auth;
 
     public Users(){
 

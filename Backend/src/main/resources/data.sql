@@ -7,4 +7,4 @@ INSERT INTO pages (title, description, img, banner) VALUES ('Kostplan', 'Get Fit
 INSERT INTO pages (title, description, img, banner) VALUES ('Swim', 'Jeg har ikke lært at svømme', 'img', 'banner');
 INSERT INTO pages (title, description, img, banner) VALUES ('TRX', 'Jeg har ikke lært at Løfte, er svag som Daniel', 'img', 'banner');
 INSERT INTO review (author, description, review_image) VALUES ('Daniel', 'Daniel er super god til reviews', 'img');
-INSERT INTO auth (mail, role) VALUES ('daniel.lorenzen@hotmail.com', 'ADMIN')
+-- INSERT INTO auth (mail, role) VALUES ('daniel.lorenzen@hotmail.com', 'ADMIN')

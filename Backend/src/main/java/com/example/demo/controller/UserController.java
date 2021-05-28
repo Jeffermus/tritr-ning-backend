@@ -39,17 +39,14 @@ public class UserController {
     //     === INSERT USER ===
     @PostMapping(value = "/insert/user", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Users insertUser(@RequestBody Users users) {
-        System.out.println(users);
+    public Auth insertUser(@RequestBody Users users) {
 
-        return userRepository.save(users);
-    }
+        Users userSaved = userRepository.save(users);
+        Auth auth = new Auth();
+        auth.setRole("USER_ADMIN");
+        auth.setUsers(userSaved);
 
-    //     === INSERT AUTH ===
-    @PostMapping(value = "/insert/admin/auth", consumes = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Auth insertAuth(@RequestBody Auth auth) {
-        System.out.println(auth);
+        System.out.println("blabla" + userSaved);
 
         return authRepository.save(auth);
     }

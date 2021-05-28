@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -11,19 +10,17 @@ public class Auth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String mail;
     private String role;
 
     @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users users;
 
     public Auth(){ super();
     }
 
-    public Auth(String mail, String role) {
-        this.mail = mail;
+    public Auth(String role) {
         this.role = role;
     }
 
@@ -39,14 +36,6 @@ public class Auth {
         this.id = id;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public String getRole() {
         return role;
     }
@@ -59,7 +48,6 @@ public class Auth {
     public String toString() {
         return "Auth{" +
                 "id=" + id +
-                ", mail='" + mail + '\'' +
                 ", role='" + role + '\'' +
                 ", users=" + users +
                 '}';

@@ -1,12 +1,12 @@
 package com.example.demo.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "auth")
 public class Auth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,13 +14,22 @@ public class Auth {
     private String mail;
     private String role;
 
-    public Auth(){
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private Users users;
+
+    public Auth(){ super();
     }
 
     public Auth(String mail, String role) {
         this.mail = mail;
         this.role = role;
     }
+
+    public Users getUsers() { return users; }
+
+    public void setUsers(Users users) { this.users = users; }
 
     public int getId() {
         return id;
@@ -52,6 +61,7 @@ public class Auth {
                 "id=" + id +
                 ", mail='" + mail + '\'' +
                 ", role='" + role + '\'' +
+                ", users=" + users +
                 '}';
     }
 }

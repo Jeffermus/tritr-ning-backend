@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Blog {
+public class BlogPage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,10 @@ public class Blog {
     private String datetime;
     private String author;
 
-    public Blog() {
+    public BlogPage() {
     }
 
-    public Blog(String title, String description, String img, String datetime, String author) {
+    public BlogPage(String title, String description, String img, String datetime, String author) {
         this.title = title;
         this.description = description;
         this.img = img;

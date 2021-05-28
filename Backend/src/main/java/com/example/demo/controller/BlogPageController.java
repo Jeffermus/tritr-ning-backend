@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 //import com.example.demo.model.Blog;
-import com.example.demo.model.BlogPage;
+import com.example.demo.model.Blog;
 import com.example.demo.repository.BlogPageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -22,27 +22,27 @@ public class BlogPageController {
 //    ====== SELECT ALL BLOG =====
 
     @GetMapping("/select/blogs")
-    public List<BlogPage> getBlogs(){
-        List<BlogPage> blogs = blogPageRepository.findAll();
+    public List<Blog> getBlogs(){
+        List<Blog> blogs = blogPageRepository.findAll();
 
         return blogs;
     }
 
     //    ====== SELECT ONE BLOG =====
     @GetMapping("/select/blog/{title}")
-    public BlogPage getOneBlogWTitle(@PathVariable String title){
-        BlogPage blogPage = blogPageRepository.findByTitle(title);
+    public Blog getOneBlogWTitle(@PathVariable String title){
+        Blog blog = blogPageRepository.findByTitle(title);
 
-        return blogPage;
+        return blog;
     }
 
     //    ====== SELECT ALL BLOGS WITH ID =====
     @GetMapping("/select/all/blogs/{id}")
-    public List<BlogPage> getAllBlogsWId(@PathVariable int id){
+    public List<Blog> getAllBlogsWId(@PathVariable int id){
         System.out.println(id);
-        List<BlogPage> blogPages = blogPageRepository.findAllById(id);
+        List<Blog> blogs = blogPageRepository.findAllById(id);
 
-        return blogPages;
+        return blogs;
     }
 
     //    ==================================================== POST BLOG ================================================
@@ -51,29 +51,29 @@ public class BlogPageController {
 
     @PostMapping(value = "/insert/blog", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public BlogPage insertBlog(@RequestBody BlogPage blogPage) {
-        System.out.println(blogPage);
+    public Blog insertBlog(@RequestBody Blog blog) {
+        System.out.println(blog);
 
-        return blogPageRepository.save(blogPage);
+        return blogPageRepository.save(blog);
     }
 
     //    =======  EDIT BLOG =====
 
-    @PutMapping(value="/edit/blog", consumes = "application/json")
+    @PutMapping(value="/edit/blog{id}", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void editBlog(@RequestBody BlogPage blogPage){
-        System.out.println(blogPage.getId());
+    public void editBlog(@RequestBody Blog blog){
+        System.out.println(blog.getId());
 
-        BlogPage objectToUpdate = blogPageRepository.findById(blogPage.getId());
+        Blog objectToUpdate = blogPageRepository.findById(blog.getId());
         if (objectToUpdate.getDescription() != null){
-            objectToUpdate.setDescription(blogPage.getDescription());
+            objectToUpdate.setDescription(blog.getDescription());
         }
-        objectToUpdate.setAuthor(blogPage.getAuthor());
-        objectToUpdate.setDescription(blogPage.getDescription());
-        objectToUpdate.setImg(blogPage.getImg());
-        objectToUpdate.setTitle(blogPage.getTitle());
-        objectToUpdate.setDatetime(blogPage.getDatetime());
-        System.out.println(blogPage);
+        objectToUpdate.setAuthor(blog.getAuthor());
+        objectToUpdate.setDescription(blog.getDescription());
+        objectToUpdate.setImg(blog.getImg());
+        objectToUpdate.setTitle(blog.getTitle());
+        objectToUpdate.setDatetime(blog.getDatetime());
+        System.out.println(blog);
 
         blogPageRepository.save(objectToUpdate);
 

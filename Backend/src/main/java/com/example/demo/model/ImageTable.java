@@ -3,9 +3,7 @@ package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Arrays;
-import java.util.Set;
 
 @Entity
 @Table(name = "image_table")
@@ -37,7 +35,12 @@ public class ImageTable {
     @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "blog_id", referencedColumnName = "id")
-    private BlogPage blogpage;
+    private Blog blog;
+
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "about_id", referencedColumnName = "id")
+    private About about;
 
     public ImageTable() {
         super();
@@ -49,12 +52,20 @@ public class ImageTable {
         this.picByte = picByte;
     }
 
-    public BlogPage getBlog() {
-        return blogpage;
+    public About getAbout() {
+        return about;
     }
 
-    public void setBlog(BlogPage blogpage) {
-        this.blogpage = blogpage;
+    public void setAbout(About about) {
+        this.about = about;
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
     }
 
     public Pages getPages() {

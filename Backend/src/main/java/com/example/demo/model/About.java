@@ -1,9 +1,8 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 @Entity
 public class About {
@@ -14,6 +13,10 @@ public class About {
     private String description;
     private String img;
 
+    @JsonBackReference
+    @OneToOne(mappedBy = "about")
+    private ImageTable imageTable;
+
     public About() {
     }
 
@@ -21,6 +24,14 @@ public class About {
         this.title = title;
         this.description = description;
         this.img = img;
+    }
+
+    public ImageTable getImageTable() {
+        return imageTable;
+    }
+
+    public void setImageTable(ImageTable imageTable) {
+        this.imageTable = imageTable;
     }
 
     public int getId() {

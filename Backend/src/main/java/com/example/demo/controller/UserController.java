@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Auth;
+import com.example.demo.model.BlogPage;
 import com.example.demo.model.Users;
 import com.example.demo.repository.AuthRepository;
 import com.example.demo.repository.UserRepository;
@@ -34,6 +35,14 @@ public class UserController {
         return user;
     }
 
+    //    ====== SELECT ONE USER =====
+    @GetMapping("/select/user/{id}")
+    public Users getOneUserWID(@PathVariable int id){
+        Users users = userRepository.findById(id);
+
+        return users;
+    }
+
 //   ==================================================== POST USERS TO DB =============================================
 
     //     === INSERT USER ===
@@ -50,6 +59,29 @@ public class UserController {
 
         return authRepository.save(auth);
     }
+
+
+    //    =======  EDIT USER =====
+
+    @PutMapping(value="/edit/user", consumes = "application/json")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void editBlog(@RequestBody Users users){
+        System.out.println(users.getId());
+
+        Auth auth = new Auth();
+
+        Users objectToUpdate = userRepository.findById(users.getId());
+        Auth objectToUpdate2 = authRepository.findById(auth.getId());
+
+        objectToUpdate.setMail(users.getMail());
+        objectToUpdate2.setRole(auth.getRole());
+
+        System.out.println(users);
+
+        userRepository.save(objectToUpdate);
+
+    }
+
 
 //    ==================================================== DELETE USER ==============================================
 

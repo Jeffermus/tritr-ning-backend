@@ -53,7 +53,16 @@ public class UserController {
 
 //    ==================================================== DELETE USER ==============================================
 
-
+    @ResponseStatus(code=HttpStatus.OK)
+    @PostMapping("/delete/user/{id}")
+    public void deleteUser(@PathVariable int id){
+        System.out.println("ID=============="+id);
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException ex) {
+            System.out.println("FEJL i DELETE =" + ex.getMessage());
+        }
+    }
 
 
 }

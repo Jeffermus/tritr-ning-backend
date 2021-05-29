@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Auth;
-import com.example.demo.model.BlogPage;
 import com.example.demo.model.Users;
 import com.example.demo.repository.AuthRepository;
 import com.example.demo.repository.UserRepository;
@@ -71,10 +70,10 @@ public class UserController {
         Auth auth = new Auth();
 
         Users objectToUpdate = userRepository.findById(users.getId());
-        Auth objectToUpdate2 = authRepository.findById(auth.getId());
+//        Auth objectToUpdate2 = authRepository.findById(auth.getId());
 
         objectToUpdate.setMail(users.getMail());
-        objectToUpdate2.setRole(auth.getRole());
+//        objectToUpdate2.setRole(auth.getRole());
 
         System.out.println(users);
 

@@ -58,7 +58,7 @@ public class ReviewController {
 
     //    =======  UPDATE REVIEW =====
 
-    @PutMapping(value="/edit/review", consumes = "application/json")
+
     @ResponseStatus(HttpStatus.OK)
     public Review updateReview(@RequestBody Review review){
         System.out.println("REVIEW==="+review);
@@ -77,7 +77,7 @@ public class ReviewController {
     //    ==================================================== DELETE BLOG =============================================
 
     @ResponseStatus(code=HttpStatus.OK)
-    @PostMapping("/delete/review/{id}")
+    @DeleteMapping("/delete/review/{id}")
     public void deleteReview(@PathVariable int id){
         System.out.println("ID================"+id);
         try {

@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Pages;
-import com.example.demo.repository.ActivityPageRepository;
+import com.example.demo.repository.PagesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -11,17 +11,17 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
-public class ActivityPageController{
+public class PagesController {
 
     @Autowired
-    ActivityPageRepository activityPageRepository;
+    PagesRepository pagesRepository;
 
-    //    ==================================================== GET Activity ============================================
+    //    ==================================================== GET Page ============================================
 
     //    ====== SELECT ALL ACTIVITIES =====
     @GetMapping("/select/activities")
     public List<Pages> getActivity() {
-        List<Pages> activities = activityPageRepository.findAll();
+        List<Pages> activities = pagesRepository.findAll();
 
         return activities;
 
@@ -29,36 +29,29 @@ public class ActivityPageController{
     //    ====== SELECT ONE ACTIVITIES WITH TITLE =====
         @GetMapping("/select/activity/{title}")
         public Pages getOneActivityWId(@PathVariable String title) {
-            Pages pages = activityPageRepository.findByTitle(title);
+            Pages pages = pagesRepository.findByTitle(title);
 
             return pages;
         }
 
-    //    ====== SELECT ALL ACTIVITIES WITH TITLE =====
-    @GetMapping("/select/all/activities/{title}")
-    public List<Pages> getAllEventsWTitle(@PathVariable String title){
-        System.out.println(title);
-        List<Pages> activities = activityPageRepository.findAllByTitle(title);
-
-        return activities;
-    }
-
-    //    ==================================================== POST PROFILES ===========================================
+    //    ==================================================== Insert Page ===========================================
 
     @PostMapping(value="/insert/activity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Pages insertActivity(@RequestBody Pages pages){
 
-        return activityPageRepository.save(pages);
+        return pagesRepository.save(pages);
 
     }
+
+    //    ==================================================== Update Page ===========================================
 
     @PutMapping(value="/edit/activity", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public void editActivityWId(@RequestBody Pages pages){
         System.out.println(pages.getTitle());
 
-        Pages objectToUpdate = activityPageRepository.findByTitle(pages.getTitle());
+        Pages objectToUpdate = pagesRepository.findByTitle(pages.getTitle());
         System.out.println(objectToUpdate);
         if (pages.getDescription() != null){
             objectToUpdate.setDescription(pages.getDescription());
@@ -68,18 +61,16 @@ public class ActivityPageController{
         objectToUpdate.setTitle(pages.getTitle());
         System.out.println(pages);
 
-
-
-        activityPageRepository.save(objectToUpdate);
+        pagesRepository.save(objectToUpdate);
 
     }
-//    ==================================================== DELETE PROFILES =============================================
+//    ==================================================== DELETE Page =============================================
 
     @ResponseStatus(code=HttpStatus.NO_CONTENT)
     @DeleteMapping("/delete/activity/{id}")
     public void deleteActivity(@PathVariable int id){
         try {
-            activityPageRepository.deleteById(id);
+            pagesRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
             System.out.println("FEJL i DELETE =" + ex.getMessage());
         }

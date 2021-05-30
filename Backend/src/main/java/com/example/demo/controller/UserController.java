@@ -84,8 +84,8 @@ public class UserController {
 
 //    ==================================================== DELETE USER ==============================================
 
-    @ResponseStatus(code=HttpStatus.OK)
-    @PostMapping("/delete/user/{id}")
+    @ResponseStatus(code=HttpStatus.NO_CONTENT)
+    @DeleteMapping("/delete/user/{id}")
     public void deleteUser(@PathVariable int id){
         System.out.println("ID=============="+id);
         try {

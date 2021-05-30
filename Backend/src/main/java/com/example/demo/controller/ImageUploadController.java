@@ -23,7 +23,7 @@ public class ImageUploadController {
     @Autowired
     ReviewRepository reviewRepository;
     @Autowired
-    ActivityPageRepository activityPageRepository;
+    PagesRepository pagesRepository;
     @Autowired
     BlogPageRepository blogPageRepository;
     @Autowired
@@ -44,7 +44,7 @@ public class ImageUploadController {
             imageRepository.save(img);
         }
         if(page_id != 0){
-            Pages getPage = activityPageRepository.getOne(page_id);
+            Pages getPage = pagesRepository.getOne(page_id);
 
             ImageTable img = new ImageTable(file.getOriginalFilename(), file.getContentType(), compressService.compressBytes(file.getBytes()));
             img.setPages(getPage);

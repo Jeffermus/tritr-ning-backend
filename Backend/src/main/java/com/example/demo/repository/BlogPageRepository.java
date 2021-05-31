@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface BlogPageRepository extends JpaRepository<Blog, Integer> {
   List<Blog> findAllById(int id);
+  Blog findByAuthor(String author);
   Blog deleteById(int id);
   Blog findByTitle(String title);
   Blog findById(int id);

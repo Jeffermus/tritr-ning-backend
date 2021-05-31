@@ -13,6 +13,7 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
+    @Column(length=1000000)
     private String description;
     private String img;
     private String datetime;

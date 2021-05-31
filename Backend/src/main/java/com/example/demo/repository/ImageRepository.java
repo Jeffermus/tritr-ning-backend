@@ -10,11 +10,30 @@ import java.util.Optional;
 
 public interface ImageRepository extends JpaRepository <ImageTable, Long> {
 
-    @Query("FROM ImageTable WHERE review.id = ?1")
-    Optional<ImageTable> findById(int id);
+    @Query(value = "SELECT * FROM image_table WHERE page_id = ?1 AND image_name = ?2", nativeQuery = true)
+    Optional<ImageTable> findByPageNameAndImageName(int id, String imageName);
 
-    @Query(value = "FROM  ImageTable order by review.id")
+    @Query("FROM ImageTable WHERE review.id = ?1")
+    Optional<ImageTable> findReviewById(int id);
+
+    @Query("FROM ImageTable WHERE blog.id = ?1")
+    Optional<ImageTable> findBlogById(int id);
+
+//    ====== GET ALL REVIEW-IMAGE DATA =======
+    @Query(value = "SELECT * FROM image_table WHERE review_id IS NOT NULL", nativeQuery = true)
     List <ImageTable> findAllByReview();
+
+//    ====== GET ALL BLOG-IMAGE DATA =======
+    @Query(value = "SELECT * FROM image_table WHERE blog_id IS NOT NULL", nativeQuery = true)
+    List <ImageTable> findAllByBlogs();
+
+    //    ====== GET ONE BLOG-IMAGE DATA =======
+    @Query(value = "SELECT * FROM image_table WHERE blog_id = ?1", nativeQuery = true)
+    ImageTable findOneByBlog(int blog_id);
+
+    //    ====== GET ONE PAGE-IMAGE DATA =======
+    @Query(value = "SELECT * FROM image_table WHERE page_id = ?1", nativeQuery = true)
+    ImageTable findOneByPage(int page_id);
 
     Optional<ImageTable> findByName(String name);
     @Query("FROM ImageTable WHERE review.id = ?1")

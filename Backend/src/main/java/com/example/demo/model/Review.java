@@ -11,6 +11,7 @@ public class Review {
     private int id;
     private String author;
     private String reviewImage;
+    @Column(length=1000000)
     private String description;
 
     @JsonBackReference

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -122,7 +124,7 @@ public class ImageUploadController {
 
 //    GET IMAGE ------
 //    @GetMapping(path = {"/get/{imageName}"})
-//    public List<byte[]> getImage(@PathVariable("imageName") String imageName) throws IOException{
+//    public List<byte[]> getMultipleImages(@PathVariable("imageName") String imageName) throws IOException{
 //        final List<ImageTable> retrivedImage = imageRepository.findAllByName(imageName);
 //
 //        System.out.println(retrivedImage);
@@ -162,19 +164,33 @@ public class ImageUploadController {
 
         return object;
     }
-    @GetMapping("/get/reviewImage/{imageName}/{parentId}")
-    public ImageTable findReviewImage(@PathVariable("imageName") String imageName,@PathVariable("parentId") int parentId){
-            ImageTable objectToReturn = imageRepository.findReviewImageWithName(imageName, parentId);
-            return objectToReturn;
 
-
+    //        GET PAGE IMAGE ------
+    @GetMapping(path = {"/get/page/{pageid}/{imagename}"})
+    public byte[] getPageImage(@PathVariable("pageid") int page_id, @PathVariable("imagename") String imageName) throws IOException{
+        Optional<ImageTable> retrivedImage = imageRepository.findByPageNameAndImageName(page_id, imageName);
+        System.out.println("IMAGE==========="+retrivedImage);
+        ImageTable img = new ImageTable(retrivedImage.get().getName(), retrivedImage.get().getType(), compressService.decompressBytes(retrivedImage.get().getPicByte()));
+        return img.getPicByte();
     }
-//    //    GET IMAGE ------
+
+//        GET REVIEW IMAGE ------
     @GetMapping(path = {"/get/{author}"})
     public byte[] getImage(@PathVariable("author") String author) throws IOException{
         Review review = reviewRepository.findByAuthor(author);
         System.out.println("REVIEW=========="+review);
-        Optional<ImageTable> retrivedImage = imageRepository.findById(review.getId());
+        Optional<ImageTable> retrivedImage = imageRepository.findReviewById(review.getId());
+        System.out.println("IMAGE==========="+retrivedImage);
+        ImageTable img = new ImageTable(retrivedImage.get().getName(), retrivedImage.get().getType(), compressService.decompressBytes(retrivedImage.get().getPicByte()));
+        return img.getPicByte();
+    }
+
+    //        GET BLOG IMAGE ------
+    @GetMapping(path = {"/get/blog/{author}"})
+    public byte[] getBlogImage(@PathVariable("author") String author) throws IOException{
+        Blog blog = blogPageRepository.findByAuthor(author);
+        System.out.println("BLOG=========="+blog);
+        Optional<ImageTable> retrivedImage = imageRepository.findBlogById(blog.getId());
         System.out.println("IMAGE==========="+retrivedImage);
         ImageTable img = new ImageTable(retrivedImage.get().getName(), retrivedImage.get().getType(), compressService.decompressBytes(retrivedImage.get().getPicByte()));
         return img.getPicByte();

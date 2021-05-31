@@ -19,7 +19,7 @@ public class PagesController {
     //    ==================================================== GET Page ============================================
 
     //    ====== SELECT ALL ACTIVITIES =====
-    @GetMapping("/select/activities")
+    @GetMapping("/select/page")
     public List<Pages> getActivity() {
         List<Pages> activities = pagesRepository.findAll();
 
@@ -36,7 +36,7 @@ public class PagesController {
 
     }
     //    ====== SELECT ONE ACTIVITIES WITH TITLE =====
-    @GetMapping("/select/activity/{title}")
+    @GetMapping("/select/page/{title}")
     public Pages getOneActivityWId(@PathVariable String title) {
         Pages pages = pagesRepository.findByTitle(title);
 
@@ -62,7 +62,7 @@ public class PagesController {
 
     //    ==================================================== Insert Page ===========================================
 
-    @PostMapping(value="/insert/activity", consumes = "application/json")
+    @PostMapping(value="/insert/page", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Pages insertActivity(@RequestBody Pages pages){
 
@@ -72,7 +72,7 @@ public class PagesController {
 
     //    ==================================================== Update Page ===========================================
 
-    @PutMapping(value="/edit/activity", consumes = "application/json")
+    @PutMapping(value="/edit/page", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Pages editActivityWId(@RequestBody Pages pages){
         System.out.println(pages.getTitle());

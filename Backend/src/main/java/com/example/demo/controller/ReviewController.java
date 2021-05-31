@@ -59,7 +59,7 @@ public class ReviewController {
 
     //    =======  UPDATE REVIEW =====
 
-
+    @RequestMapping(value = "/edit/review",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Review updateReview(@RequestBody Review review){
         System.out.println("REVIEW==="+review);

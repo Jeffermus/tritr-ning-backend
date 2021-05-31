@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.tomcat.jni.Library;
 import org.dom4j.Branch;
 
@@ -10,11 +11,13 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Pages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
+    @Column(length=1000000)
     private String description;
     private String img;
     private String banner;

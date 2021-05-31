@@ -16,7 +16,7 @@ public class Users {
 
 
     @JsonBackReference
-    @OneToOne(mappedBy = "users")
+    @OneToOne(mappedBy = "users",fetch = FetchType.LAZY)
     private Auth auth;
 
     public Users(){
@@ -62,6 +62,13 @@ public class Users {
         this.enabled = enabled;
     }
 
+    public Auth getAuth() {
+        return auth;
+    }
+
+    public void setAuth(Auth auth) {
+        this.auth = auth;
+    }
 
     @Override
     public String toString() {

@@ -1,9 +1,9 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Review {
     @Id
@@ -14,24 +14,17 @@ public class Review {
     private String description;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "review")
+    @OneToOne(mappedBy = "review",fetch = FetchType.LAZY)
     private ImageTable imageTable;
 
     public Review(){
 
     }
 
-    public Review(String author, String reviewImage, String description) {
+    public Review(String author, String reviewImage, String description, ImageTable imageTable) {
         this.author = author;
         this.reviewImage = reviewImage;
         this.description = description;
-    }
-
-    public ImageTable getImageTable() {
-        return imageTable;
-    }
-
-    public void setImageTable(ImageTable imageTable) {
         this.imageTable = imageTable;
     }
 
@@ -63,8 +56,16 @@ public class Review {
         return description;
     }
 
-    public void setDescription(String editorCopy) {
-        this.description = editorCopy;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ImageTable getImageTable() {
+        return imageTable;
+    }
+
+    public void setImageTable(ImageTable imageTable) {
+        this.imageTable = imageTable;
     }
 
     @Override

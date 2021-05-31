@@ -1,16 +1,16 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.Arrays;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "image_table")
 public class ImageTable {
 
     @Id
-    @Column(name = "id")
+    @Column(name= "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "image_name")
@@ -23,22 +23,22 @@ public class ImageTable {
     private byte[] picByte;
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id", referencedColumnName = "id")
     private Review review;
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "page_id", referencedColumnName = "id")
     private Pages pages;
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "blog_id", referencedColumnName = "id")
     private Blog blog;
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "about_id", referencedColumnName = "id")
     private About about;
 
@@ -52,44 +52,12 @@ public class ImageTable {
         this.picByte = picByte;
     }
 
-    public About getAbout() {
-        return about;
-    }
-
-    public void setAbout(About about) {
-        this.about = about;
-    }
-
-    public Blog getBlog() {
-        return blog;
-    }
-
-    public void setBlog(Blog blog) {
-        this.blog = blog;
-    }
-
-    public Pages getPages() {
-        return pages;
-    }
-
-    public void setPages(Pages pages) {
-        this.pages = pages;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Review getReview() {
-        return review;
-    }
-
-    public void setReview(Review review) {
-        this.review = review;
     }
 
     public String getName() {
@@ -116,6 +84,38 @@ public class ImageTable {
         this.picByte = picByte;
     }
 
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
+    }
+
+    public Pages getPages() {
+        return pages;
+    }
+
+    public void setPages(Pages pages) {
+        this.pages = pages;
+    }
+
+    public Blog getBlog() {
+        return blog;
+    }
+
+    public void setBlog(Blog blog) {
+        this.blog = blog;
+    }
+
+    public About getAbout() {
+        return about;
+    }
+
+    public void setAbout(About about) {
+        this.about = about;
+    }
+
     @Override
     public String toString() {
         return "ImageTable{" +
@@ -124,6 +124,9 @@ public class ImageTable {
                 ", type='" + type + '\'' +
                 ", picByte=" + Arrays.toString(picByte) +
                 ", review=" + review +
+                ", pages=" + pages +
+                ", blog=" + blog +
+                ", about=" + about +
                 '}';
     }
 }

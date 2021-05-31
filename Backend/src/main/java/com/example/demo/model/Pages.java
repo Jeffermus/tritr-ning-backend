@@ -1,8 +1,13 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.apache.tomcat.jni.Library;
+import org.dom4j.Branch;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Pages {
@@ -15,7 +20,7 @@ public class Pages {
     private String banner;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "pages")
+    @OneToOne(mappedBy = "pages",  fetch = FetchType.LAZY)
     private ImageTable imageTable;
 
     public Pages() {
@@ -27,6 +32,7 @@ public class Pages {
         this.img = img;
         this.banner = banner;
     }
+
 
     public int getId() {
         return id;

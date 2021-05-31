@@ -59,9 +59,9 @@ public class BlogPageController {
 
     //    =======  EDIT BLOG =====
 
-    @PutMapping(value="/edit/blog{id}", consumes = "application/json")
+    @PutMapping(value="/edit/blog", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void editBlog(@RequestBody Blog blog){
+    public Blog editBlog(@RequestBody Blog blog){
         System.out.println(blog.getId());
 
         Blog objectToUpdate = blogPageRepository.findById(blog.getId());
@@ -69,13 +69,12 @@ public class BlogPageController {
             objectToUpdate.setDescription(blog.getDescription());
         }
         objectToUpdate.setAuthor(blog.getAuthor());
-        objectToUpdate.setDescription(blog.getDescription());
         objectToUpdate.setImg(blog.getImg());
         objectToUpdate.setTitle(blog.getTitle());
         objectToUpdate.setDatetime(blog.getDatetime());
         System.out.println(blog);
 
-        blogPageRepository.save(objectToUpdate);
+        return blogPageRepository.save(objectToUpdate);
 
     }
 

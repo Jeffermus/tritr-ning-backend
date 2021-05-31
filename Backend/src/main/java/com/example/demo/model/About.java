@@ -14,24 +14,17 @@ public class About {
     private String img;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "about")
+    @OneToOne(mappedBy = "about", fetch = FetchType.LAZY)
     private ImageTable imageTable;
 
     public About() {
     }
 
-    public About(String title, String description, String img) {
+    public About(String title, String description, String img, ImageTable imageTable) {
         this.title = title;
         this.description = description;
         this.img = img;
-    }
-
-    public ImageTable getImageTable() {
-        return imageTable;
-    }
-
-    public void setImageTable(ImageTable imageTable) {
-        this.imageTable = imageTable;
+//        this.imageTable = imageTable;
     }
 
     public int getId() {
@@ -66,15 +59,13 @@ public class About {
         this.img = img;
     }
 
-    @Override
-    public String toString() {
-        return "About{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", img='" + img + '\'' +
-                '}';
-    }
+//    public ImageTable getImageTable() {
+//        return imageTable;
+//    }
+//
+//    public void setImageTable(ImageTable imageTable) {
+//        this.imageTable = imageTable;
+//    }
 }
 
 

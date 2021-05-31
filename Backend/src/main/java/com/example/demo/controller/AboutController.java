@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.About;
+import com.example.demo.model.Review;
 import com.example.demo.repository.AboutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,13 +25,12 @@ public class AboutController {
             return about;
         }
 
-    @PostMapping(value = "/insert/about", consumes = "application/json")
+    @PostMapping(value = "/insert/about" , consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public About insertAbout(@RequestBody About about){
 
         return aboutRepository.save(about);
     }
-
     @PostMapping(value = "/edit/about{id}", consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public void editAbout(@RequestBody About about){

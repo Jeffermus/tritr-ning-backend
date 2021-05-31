@@ -1,10 +1,11 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Blog {
 
@@ -18,7 +19,7 @@ public class Blog {
     private String author;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "blog")
+    @OneToOne(mappedBy = "blog",  fetch = FetchType.LAZY)
     private ImageTable imageTable;
 
     public Blog() {

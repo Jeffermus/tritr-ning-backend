@@ -12,3 +12,9 @@ INSERT INTO pages (title, description, img, banner) VALUES ('Swim', 'Jeg har ikk
 INSERT INTO pages (title, description, img, banner) VALUES ('TRX', 'Jeg har ikke lært at Løfte, er svag som Daniel', 'img', 'banner');
 INSERT INTO review (author, description, review_image) VALUES ('Daniel', 'Daniel er super god til reviews', 'img');
 -- INSERT INTO auth (mail, role) VALUES ('daniel.lorenzen@hotmail.com', 'ADMIN')
+
+INSERT INTO about (description, img, title) VALUES ('desc', 'img', 'title');
+
+INSERT INTO users (enabled, mail, password) VALUES (1, 'asd', '123');
+INSERT INTO auth (role, user_id) VALUES ('ROLE_ADMIN', 1)
+

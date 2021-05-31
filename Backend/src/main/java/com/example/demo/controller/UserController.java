@@ -7,6 +7,7 @@ import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class UserController {
     //     === SELECT ALL USERS ===
     @GetMapping(value="/select/users")
     public List<Users> getAllUsers(){
-        List <Users> user = userRepository.findAll();
+        List <Users> user = userRepository.findAllUsers();
 
         System.out.println("USER FOUND==="+user);
 
@@ -49,9 +50,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public Auth insertUser(@RequestBody Users users) {
 
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String passwordEncrypted = encoder.encode(users.getPassword());
+        users.setPassword(passwordEncrypted);
         Users userSaved = userRepository.save(users);
         Auth auth = new Auth();
-        auth.setRole("USER_ADMIN");
+        auth.setRole("ROLE_ADMIN");
+        auth.setUser_mail(users.getMail());
         auth.setUsers(userSaved);
 
         System.out.println("blabla" + userSaved);
@@ -64,20 +69,23 @@ public class UserController {
 
     @PutMapping(value="/edit/user", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void editBlog(@RequestBody Users users){
+    public Users editBlog(@RequestBody Users users){
         System.out.println(users.getId());
 
-        Auth auth = new Auth();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String passwordEncrypted = encoder.encode(users.getPassword());
 
-        Users objectToUpdate = userRepository.findById(users.getId());
-//        Auth objectToUpdate2 = authRepository.findById(auth.getId());
+        Auth auth               = authRepository.findByUsers(users);
+        Users objectToUpdate    = userRepository.findById(users.getId());
+
+        auth.setUser_mail(users.getMail());
 
         objectToUpdate.setMail(users.getMail());
-//        objectToUpdate2.setRole(auth.getRole());
+        objectToUpdate.setPassword(passwordEncrypted);
 
         System.out.println(users);
 
-        userRepository.save(objectToUpdate);
+        return userRepository.save(objectToUpdate);
 
     }
 
@@ -88,11 +96,13 @@ public class UserController {
     @DeleteMapping("/delete/user/{id}")
     public void deleteUser(@PathVariable int id){
         System.out.println("ID=============="+id);
-        try {
-            userRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException ex) {
-            System.out.println("FEJL i DELETE =" + ex.getMessage());
-        }
+        Users users = userRepository.getOne(id);
+//        try {
+            authRepository.deleteById(id);
+            userRepository.delete(users);
+//        } catch (EmptyResultDataAccessException ex) {
+//            System.out.println("FEJL i DELETE =" + ex.getMessage());
+//        }
     }
 
 

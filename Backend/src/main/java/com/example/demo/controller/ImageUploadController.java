@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.CompressService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Optional;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping(path = "image")
@@ -71,27 +73,118 @@ public class ImageUploadController {
 
 //    UPDATE IMAGE -------
     @PostMapping(value="/update", consumes = "multipart/form-data")
-    public BodyBuilder updateImage(@RequestParam("imageFile")MultipartFile file, @RequestParam("author_id") int author_id) throws IOException {
+    public ImageTable updateImage(@RequestParam("imageFile")MultipartFile file,  @RequestParam("image_id") Long image_id, @RequestParam("author_id") int author_id, @RequestParam("page_id") int page_id, @RequestParam("review_id") int review_id, @RequestParam("blog_id") int blog_id) throws IOException {
 //        System.out.println("Orignal Image Byte Size - " + file.getBytes().length);
         System.out.println("FIRST ID ======="+author_id);
 
-        ImageTable objectToUpdate = imageRepository.findByActivityId(author_id);
+        ImageTable objectToUpdate = null;
 
-        System.out.println("IMAGE========="+objectToUpdate);
+        if(author_id != 0){
+            objectToUpdate = imageRepository.findByActivityId(author_id);
 
-        objectToUpdate.setName(file.getOriginalFilename());
-        objectToUpdate.setType(file.getContentType());
-        objectToUpdate.setPicByte(compressService.compressBytes(file.getBytes()));
+            System.out.println("IMAGE========="+objectToUpdate);
 
-        imageRepository.save(objectToUpdate);
-        return ResponseEntity.status(HttpStatus.OK);
+            objectToUpdate.setName(file.getOriginalFilename());
+            objectToUpdate.setType(file.getContentType());
+            objectToUpdate.setPicByte(compressService.compressBytes(file.getBytes()));
+        }
+        if(page_id != 0){
+            objectToUpdate = imageRepository.findPagesImageWithId(image_id, page_id);
+            System.out.println("OBJECT UPDATE======"+objectToUpdate);
+            System.out.println(file.getOriginalFilename());
+            objectToUpdate.setName(file.getOriginalFilename());
+            objectToUpdate.setType(file.getContentType());
+            objectToUpdate.setPicByte(compressService.compressBytes(file.getBytes()));
+        }
+
+        if(review_id != 0){
+            objectToUpdate = imageRepository.findReviewImage(image_id, review_id);
+            System.out.println("OBJECT UPDATE======"+objectToUpdate);
+            System.out.println(file.getOriginalFilename());
+            objectToUpdate.setName(file.getOriginalFilename());
+            objectToUpdate.setType(file.getContentType());
+            objectToUpdate.setPicByte(compressService.compressBytes(file.getBytes()));
+        }
+
+        if(blog_id != 0){
+            objectToUpdate = imageRepository.findBlogImageWithId(image_id, blog_id);
+            System.out.println("OBJECT UPDATE======"+objectToUpdate);
+            System.out.println(file.getOriginalFilename());
+            objectToUpdate.setName(file.getOriginalFilename());
+            objectToUpdate.setType(file.getContentType());
+            objectToUpdate.setPicByte(compressService.compressBytes(file.getBytes()));
+        }
+
+
+        return imageRepository.save(objectToUpdate);
+//        return ResponseEntity.status(HttpStatus.OK);
     }
 
 //    GET IMAGE ------
-    @GetMapping(path = {"/get/{imageName}"})
-    public byte[] getImage(@PathVariable("imageName") String imageName) throws IOException{
-        final Optional<ImageTable> retrivedImage = imageRepository.findByName(imageName);
+//    @GetMapping(path = {"/get/{imageName}"})
+//    public List<byte[]> getImage(@PathVariable("imageName") String imageName) throws IOException{
+//        final List<ImageTable> retrivedImage = imageRepository.findAllByName(imageName);
+//
+//        System.out.println(retrivedImage);
+////        returnImage.setName();
+//
+////
+//        List<byte[]> returnImage = new ArrayList();
+////
+//        for(int i = 0; i < retrivedImage.size(); i++){
+////            List<? extends ImageTable> img = (List<? extends ImageTable>) new ImageTable(retrivedImage.get(i).getName(), retrivedImage.get(i).getType(), compressService.decompressBytes(retrivedImage.get(i).getPicByte()));
+//            ImageTable newImage = null;
+////            returnImage.add(img.get(i).getPicByte());
+//            newImage.setName(retrivedImage.get(i).getName());
+//            newImage.setType(retrivedImage.get(i).getType());
+//            newImage.setPicByte(CompressService.decompressBytes(retrivedImage.get(i).getPicByte()));
+//
+//            returnImage.add(newImage.getPicByte());
+//        }
+//
+//        return returnImage;
+//    }
+
+    @GetMapping("/get/imageid/{imageName}/{parentId}/{childTable}")
+    public ImageTable findImageWithId(@PathVariable("imageName") String imageName,@PathVariable("parentId") int parentId, @PathVariable("childTable") String childTable){
+            System.out.println(childTable);
+
+        ImageTable object = null;
+
+
+        if (childTable.equals("page")){
+            object = imageRepository.findPageImageWithName(imageName, parentId);
+        }if (childTable.equals("review")){
+            object = imageRepository.findReviewImageWithName(imageName, parentId);
+        }if (childTable.equals("blog")){
+            object = imageRepository.findBlogImageWithName(imageName, parentId);
+        }
+
+        return object;
+    }
+    @GetMapping("/get/reviewImage/{imageName}/{parentId}")
+    public ImageTable findReviewImage(@PathVariable("imageName") String imageName,@PathVariable("parentId") int parentId){
+            ImageTable objectToReturn = imageRepository.findReviewImageWithName(imageName, parentId);
+            return objectToReturn;
+
+
+    }
+//    //    GET IMAGE ------
+    @GetMapping(path = {"/get/{author}"})
+    public byte[] getImage(@PathVariable("author") String author) throws IOException{
+        Review review = reviewRepository.findByAuthor(author);
+        System.out.println("REVIEW=========="+review);
+        Optional<ImageTable> retrivedImage = imageRepository.findById(review.getId());
+        System.out.println("IMAGE==========="+retrivedImage);
         ImageTable img = new ImageTable(retrivedImage.get().getName(), retrivedImage.get().getType(), compressService.decompressBytes(retrivedImage.get().getPicByte()));
         return img.getPicByte();
     }
+
+    //    GET IMAGE ------
+//    @GetMapping(path = {"/get/{imageName}"})
+//    public byte[] getImage(@PathVariable("imageName") String imageName) throws IOException{
+//        final Optional<ImageTable> retrivedImage = imageRepository.findByName(imageName);
+//        ImageTable img = new ImageTable(retrivedImage.get().getName(), retrivedImage.get().getType(), compressService.decompressBytes(retrivedImage.get().getPicByte()));
+//        return img.getPicByte();
+//    }
 }

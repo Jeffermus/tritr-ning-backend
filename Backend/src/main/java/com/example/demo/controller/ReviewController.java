@@ -5,6 +5,7 @@ import com.example.demo.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class ReviewController {
 
 //    =======  INSERT REVIEW =====
 
-    @PostMapping(value = "/insert/review", consumes = "application/json")
+    @RequestMapping(value = "/insert/review",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Review insertReview(@RequestBody Review review) {
         System.out.println(review);

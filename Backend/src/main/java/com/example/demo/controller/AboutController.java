@@ -31,20 +31,19 @@ public class AboutController {
 
         return aboutRepository.save(about);
     }
-    @PostMapping(value = "/edit/about{id}", consumes = "application/json")
+    @PutMapping(value = "/edit/about/{id}", consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public void editAbout(@RequestBody About about){
+    public About editAbout(@RequestBody About about){
         System.out.println(about.getId());
 
         About objectToUpdate = aboutRepository.findById(about.getId());
-        System.out.println(objectToUpdate);
-        if (about.getDescription() != null){
+        if (!about.getDescription().equals("")){
             objectToUpdate.setDescription(about.getDescription());
         }
         objectToUpdate.setImg(about.getImg());
         objectToUpdate.setTitle(about.getTitle());
         System.out.println(about);
 
-        aboutRepository.save(objectToUpdate);
+        return aboutRepository.save(objectToUpdate);
     }
 }

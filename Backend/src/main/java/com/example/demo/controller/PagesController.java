@@ -75,14 +75,15 @@ public class PagesController {
     @PutMapping(value="/edit/page", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Pages editActivityWId(@RequestBody Pages pages){
-        System.out.println(pages.getTitle());
+        System.out.println(pages.getId());
+        System.out.println(pages);
 
-        Pages objectToUpdate = pagesRepository.findByTitle(pages.getTitle());
+        Pages objectToUpdate = pagesRepository.findById(pages.getId());
         System.out.println(objectToUpdate);
         if (pages.getDescription() != null){
             objectToUpdate.setDescription(pages.getDescription());
         }
-        objectToUpdate.setBanner(pages.getBanner());
+//        objectToUpdate.setBanner(pages.getBanner());
         objectToUpdate.setImg(pages.getImg());
         objectToUpdate.setTitle(pages.getTitle());
         System.out.println(pages);
@@ -93,8 +94,9 @@ public class PagesController {
 //    ==================================================== DELETE Page =============================================
 
     @ResponseStatus(code=HttpStatus.NO_CONTENT)
-    @DeleteMapping("/delete/activity/{id}")
-    public void deleteActivity(@PathVariable int id){
+    @DeleteMapping("/delete/page/{id}")
+    public void deletePage(@PathVariable int id){
+        System.out.println(id);
         try {
             pagesRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {

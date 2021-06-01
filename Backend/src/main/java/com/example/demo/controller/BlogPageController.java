@@ -3,6 +3,7 @@ package com.example.demo.controller;
 //import com.example.demo.model.Blog;
 import com.example.demo.model.Blog;
 import com.example.demo.repository.BlogPageRepository;
+import com.example.demo.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,9 @@ public class BlogPageController {
 
     @Autowired
     BlogPageRepository blogPageRepository;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     //    ==================================================== GET BLOG ================================================
 
@@ -85,6 +89,7 @@ public class BlogPageController {
     public void deleteBlog(@PathVariable int id){
         System.out.println("ID================"+id);
         try {
+            imageRepository.deleteByBlogId(id);
             blogPageRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
             System.out.println("FEJL i DELETE =" + ex.getMessage());

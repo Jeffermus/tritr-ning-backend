@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Review;
+import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,7 +17,8 @@ public class ReviewController {
     @Autowired
     ReviewRepository reviewRepository;
 
-
+    @Autowired
+    ImageRepository imageRepository;
     //    ==================================================== GET REVIEW ================================================
 
 
@@ -82,6 +84,7 @@ public class ReviewController {
     public void deleteReview(@PathVariable int id){
         System.out.println("ID================"+id);
         try {
+            imageRepository.deleteByReviewId(id);
             reviewRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
             System.out.println("FEJL i DELETE =" + ex.getMessage());

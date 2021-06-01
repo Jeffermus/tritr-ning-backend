@@ -102,7 +102,7 @@ public class PagesController {
     public void deletePage(@PathVariable int id){
         System.out.println(id);
         try {
-            imageRepository.deleteByReviewId(id);
+            imageRepository.deleteByPageId(id);
             pagesRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
             System.out.println("FEJL i DELETE =" + ex.getMessage());

@@ -1,14 +1,22 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.ImageTable;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 public interface ImageRepository extends JpaRepository <ImageTable, Long> {
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM image_table WHERE page_id = ?1", nativeQuery = true)
+    void deleteByReviewId(int id);
 
     @Query(value = "SELECT * FROM image_table WHERE page_id = ?1 AND image_name = ?2", nativeQuery = true)
     Optional<ImageTable> findByPageNameAndImageName(int id, String imageName);

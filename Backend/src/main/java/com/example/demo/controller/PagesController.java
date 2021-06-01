@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Pages;
+import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.PagesRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ public class PagesController {
 
     @Autowired
     PagesRepository pagesRepository;
+    @Autowired
+    ImageRepository imageRepository;
 
     //    ==================================================== GET Page ============================================
 
@@ -98,6 +102,7 @@ public class PagesController {
     public void deletePage(@PathVariable int id){
         System.out.println(id);
         try {
+            imageRepository.deleteByReviewId(id);
             pagesRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
             System.out.println("FEJL i DELETE =" + ex.getMessage());
